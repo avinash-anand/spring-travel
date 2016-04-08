@@ -5,6 +5,7 @@
 <div id="bookingForm">
 	<div class="span-5">
 		<h3>${booking.hotel.name}</h3>
+		<h5>${booking.id }</h5>
 		
 		<address>
 			${booking.hotel.address}
@@ -29,6 +30,7 @@
 		</spring:hasBindErrors>
 		<form:form modelAttribute="booking" action="reviewBookingDetails" method="POST">
 			<form:hidden path="hotel.id"/>
+			<form:hidden path="id"/>
 			<fieldset>
 				<legend>Book Hotel</legend>
 		        <div>

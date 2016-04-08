@@ -71,15 +71,17 @@ public class HotelsController {
 	
 	@RequestMapping(value = "/hotels/reviewBookingDetails", method = RequestMethod.POST)
 	public String reviewBookingDetails(@ModelAttribute("booking") Booking booking, Model model, HttpServletRequest request, Principal currentUser) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking 1 = " + booking);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking reviewBookingDetails 1 = " + booking);
 		booking.setHotel(bookingService.findHotelById(Long.parseLong(request.getParameter("hotel.id"))));
 		//Booking booking = bookingService.createBooking(booking.getHotel().getId(), currentUser.getName());
 		model.addAttribute("booking", booking);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking reviewBookingDetails 1 = " + booking);
 		return "reviewBooking";
 	}
 	
 	@RequestMapping(value = "/hotels/save", method = RequestMethod.POST)
 	public String booking(@ModelAttribute("booking") Booking booking, Model model, HttpServletRequest request, Principal currentUser) {
+		System.out.println("id =  " + request.getParameter("id"));
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking 2 = " + booking);
 		booking.setHotel(bookingService.findHotelById(Long.parseLong(request.getParameter("hotel.id"))));
 		model.addAttribute("booking", booking);

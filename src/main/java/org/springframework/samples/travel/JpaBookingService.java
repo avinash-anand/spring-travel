@@ -68,6 +68,12 @@ public class JpaBookingService implements BookingService {
 		em.persist(booking);
 		return booking;
 	}
+	
+	@Transactional
+	public Booking save(Booking booking) {
+		em.persist(booking);
+		return booking;
+	}
 
 	@Transactional
 	public void cancelBooking(Long id) {
