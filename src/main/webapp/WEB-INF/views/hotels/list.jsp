@@ -5,6 +5,7 @@
 <h1>Hotel Results</h1>
 <p>
 	<a id="changeSearchLink" href="hotels/search?searchString=${searchCriteria.searchString}&pageSize=${searchCriteria.pageSize}">Change Search</a>
+	&nbsp;
 	<a id="myBookings" href="hotels/myBookings">My Bookings</a>
 	<script type="text/javascript">
 		Spring.addDecoration(new Spring.AjaxEventDecoration({
