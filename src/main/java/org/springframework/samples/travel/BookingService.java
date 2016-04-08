@@ -55,5 +55,7 @@ public interface BookingService {
      */
     public User findUser(String username);
 
+    
+    public Booking save(Booking booking);
 }
 

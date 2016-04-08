@@ -71,7 +71,7 @@ public class JpaBookingService implements BookingService {
 	
 	@Transactional
 	public Booking save(Booking booking) {
-		em.persist(booking);
+		em.merge(booking);
 		return booking;
 	}
 

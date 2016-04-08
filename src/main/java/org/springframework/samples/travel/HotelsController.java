@@ -5,18 +5,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes({"booking"})
 public class HotelsController {
 
 	private BookingService bookingService;
@@ -63,35 +63,31 @@ public class HotelsController {
 		}
 		
 		Booking booking = bookingService.createBooking(id, currentUser.getName());
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking enterBookingDetails = " + booking);
 		model.addAttribute("booking", booking);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ model enterBookingDetails = " + model);
 		return "enterBookingDetails";
 	}
 	
 	@RequestMapping(value = "/hotels/reviewBookingDetails", method = RequestMethod.POST)
 	public String reviewBookingDetails(@ModelAttribute("booking") Booking booking, Model model, HttpServletRequest request, Principal currentUser) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking reviewBookingDetails 1 = " + booking);
 		booking.setHotel(bookingService.findHotelById(Long.parseLong(request.getParameter("hotel.id"))));
-		//Booking booking = bookingService.createBooking(booking.getHotel().getId(), currentUser.getName());
+		System.out.println("CC1: " + booking.getCreditCard());
 		model.addAttribute("booking", booking);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking reviewBookingDetails 1 = " + booking);
 		return "reviewBooking";
 	}
 	
 	@RequestMapping(value = "/hotels/save", method = RequestMethod.POST)
 	public String booking(@ModelAttribute("booking") Booking booking, Model model, HttpServletRequest request, Principal currentUser) {
-		System.out.println("id =  " + request.getParameter("id"));
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking 2 = " + booking);
 		booking.setHotel(bookingService.findHotelById(Long.parseLong(request.getParameter("hotel.id"))));
 		model.addAttribute("booking", booking);
+		System.out.println("CC2: " + booking.getCreditCard());
 		bookingService.createBooking(booking.getHotel().getId(), currentUser.getName());
 		return "redirect:../hotels/success";
 	}
 	
 	@RequestMapping(value = "/hotels/success", method = RequestMethod.GET)
-	public String bookingSuccess(Model model) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking 3 = ");
+	public String bookingSuccess(@ModelAttribute("booking") Booking booking, Model model) {
+		System.out.println("CC3: " + booking.getCreditCard());
+		bookingService.save(booking);
 		return "success";
 	}
 
