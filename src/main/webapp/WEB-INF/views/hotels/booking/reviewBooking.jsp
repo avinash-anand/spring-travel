@@ -16,7 +16,7 @@
 	</div>
 	<div class="span-12 last">
 		<form:form id="confirm" modelAttribute="booking" action="save">
-		<form:hidden path="hotel.id" />
+		<form:hidden path="hotel.id" id="hotelId"/>
 		<fieldset>
 			<legend>Confirm Booking Details</legend>
 			<div>
@@ -50,10 +50,16 @@
 				</div>
 			</div>
 			<div>
-				<button type="submit" name="_eventId_confirm">Confirm</button>
-				<button type="submit" name="_eventId_revise">Revise</button>
-				<button type="reset" name="_eventId_cancel">Cancel</button>
+				<button type="submit" name="_eventId_confirm" id="confirm">Confirm</button>
+				<button type="button" name="_eventId_revise" id="revise" onclick="goBack()">Revise</button>
+				<button type="reset" name="_eventId_cancel" id="cancel">Cancel</button>
 			</div>
+			<script type="text/javascript">
+			function goBack() {
+				var hotelId = document.getElementById("hotelId").value;
+				window.location.href = "../hotels/booking?hotelId=" + hotelId;
+			}
+			</script>
 		</fieldset>
 		</form:form>
 	</div>

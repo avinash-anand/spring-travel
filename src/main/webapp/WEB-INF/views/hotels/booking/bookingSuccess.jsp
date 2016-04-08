@@ -1,2 +1,2 @@
 
-<h1>Booking Success</h1>
+<h1>Hotel Booking Done.</h1>
