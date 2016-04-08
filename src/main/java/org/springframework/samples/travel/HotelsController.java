@@ -55,9 +55,13 @@ public class HotelsController {
 	
 	@RequestMapping(value = "/hotels/booking", method = RequestMethod.GET)
 	public String enterBookingDetails(@RequestParam("hotelId") Long id, Model model, Principal currentUser) {
-//		Booking booking = new Booking();
-//		booking.setHotel(bookingService.findHotelById(id));
-//		booking.setUser(bookingService.findUser(currentUser.getName()));
+
+		//TODO dont know how, we can get back at this point after user has logged in, but added because if user isn't logged in throws 
+		//a nullPointer here.
+		if(currentUser == null) {
+			return "users/login";
+		}
+		
 		Booking booking = bookingService.createBooking(id, currentUser.getName());
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@ booking enterBookingDetails = " + booking);
 		model.addAttribute("booking", booking);

@@ -60,7 +60,7 @@ public class JpaBookingService implements BookingService {
 		return em.find(Hotel.class, id);
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(readOnly = true)
 	public Booking createBooking(Long hotelId, String username) {
 		Hotel hotel = em.find(Hotel.class, hotelId);
 		User user = findUser(username);

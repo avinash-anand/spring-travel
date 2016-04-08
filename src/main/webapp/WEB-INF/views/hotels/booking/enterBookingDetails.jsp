@@ -184,7 +184,7 @@
 				<div>
 					<p>
 					<button type="submit" id="proceed" name="_eventId_proceed">Proceed</button>
-					<button type="reset" name="_eventId_cancel" id="cancel">Cancel</button>
+					<button type="button" onclick="history.back(-1)" name="_eventId_cancel" id="cancel">Cancel</button>
 					</p>
 					<script type="text/javascript">
 						Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));
