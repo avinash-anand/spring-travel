@@ -101,4 +101,15 @@ public class HotelsController {
 		return "redirect:../hotels/search";
 	}
 
+	@RequestMapping(value = "hotels/myBookings", method = RequestMethod.GET)
+	public String myBookings(Principal currentUser, Model model) {
+		
+		if(currentUser == null) {
+			return "users/login";
+		}
+		
+		List<Booking> bookings = bookingService.findBookings(currentUser.getName());
+		model.addAttribute("bookings", bookings);
+		return "hotels/bookingsTable";
+	}
 }
