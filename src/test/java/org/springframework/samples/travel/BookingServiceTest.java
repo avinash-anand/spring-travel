@@ -1,7 +1,10 @@
 package org.springframework.samples.travel;
 
-import junit.framework.Assert;
+import java.util.Date;
+import java.util.List;
 
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +22,79 @@ public class BookingServiceTest {
 	@Autowired
     private BookingService bookingService;
     
+	@Before
+	public void setUp() {
+		bookingService.createBasicData();
+	}
        
     @Test
     public void testUser(){    	
-    	
-    	bookingService.createBasicData();
-    	
     	User findUser = bookingService.findUser("testuser");
-    	
 		if(findUser != null){		
 			Assert.assertEquals("testuser", findUser.getUsername());
 		}
-    	
     }   
 
+	@Test
+	public void testFindBookings() {
+		Booking booking = bookingService.createBooking(1L, "testuser");
+		List<Booking> bookings = bookingService.findBookings("testuser");
+		Assert.assertEquals(1, bookings.size());
+	}
+	
+
+	@Test
+	public void testFindHotels() {
+		SearchCriteria criteria = new SearchCriteria();
+		criteria.setSearchString("Taj");
+		criteria.setPage(0);
+		criteria.setPageSize(10);
+		List<Hotel> hotels = bookingService.findHotels(criteria);
+		Assert.assertEquals(1, hotels.size());
+	}
+
+	@Test
+	public void testFindHotelById() {
+		Hotel hotel = bookingService.findHotelById(1L);
+		Assert.assertEquals("Westin Diplomat", hotel.getName());
+	}
+
+	@Test
+	public void testCreateBooking() {
+		bookingService.createBooking(1L, "testuser");
+		List<Booking> bookings = bookingService.findBookings("testuser");
+		Assert.assertEquals(1, bookings.size());
+	}
+
+	@Test
+	public void testSave() {
+		Booking booking = bookingService.createBooking(2L, "testuser");
+		System.out.println(booking.getCheckinDate());
+		Date now = new Date();
+		booking.setCheckinDate(now);
+		bookingService.save(booking);
+		List<Booking> bookings = bookingService.findBookings("testuser");
+		Date fromDb = null;
+		for(Booking b: bookings) {
+			if(b.getId().equals(booking.getId())) {
+				fromDb = b.getCheckinDate();
+			}
+		}
+		Assert.assertEquals(now, fromDb);
+	}
+
+	@Test
+	public void testCancelBooking() {
+		Booking booking = bookingService.createBooking(2L, "testuser");
+		Booking booking1 = bookingService.createBooking(3L, "testuser");
+		bookingService.cancelBooking(booking.getId());
+		
+		Assert.assertEquals(1, bookingService.findBookings("testuser").size());
+	}
+
+
+	@Test
+	public void testFindUser() {
+		Assert.assertNotNull(bookingService.findUser("testuser"));
+	}
 }

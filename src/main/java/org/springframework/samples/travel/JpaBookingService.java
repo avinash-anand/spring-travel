@@ -94,7 +94,7 @@ public class JpaBookingService implements BookingService {
 		
 		User findUser = em.find(User.class, "testuser");
 		if(findUser != null){
-			System.out.println("!!!!!! Find user:" + findUser.getName());
+			System.out.println("Find user:" + findUser.getName());
 			
 		}
 		
