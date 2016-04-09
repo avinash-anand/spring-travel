@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class BookingServiceTest {
 	@Test
 	public void testFindBookings() {
 		Booking booking = bookingService.createBooking(1L, "testuser");
+		bookingService.save(booking);
 		List<Booking> bookings = bookingService.findBookings("testuser");
 		Assert.assertEquals(1, bookings.size());
 	}
@@ -61,7 +63,8 @@ public class BookingServiceTest {
 
 	@Test
 	public void testCreateBooking() {
-		bookingService.createBooking(1L, "testuser");
+		Booking booking = bookingService.createBooking(1L, "testuser");
+		bookingService.save(booking);
 		List<Booking> bookings = bookingService.findBookings("testuser");
 		Assert.assertEquals(1, bookings.size());
 	}
@@ -69,7 +72,6 @@ public class BookingServiceTest {
 	@Test
 	public void testSave() {
 		Booking booking = bookingService.createBooking(2L, "testuser");
-		System.out.println(booking.getCheckinDate());
 		Date now = new Date();
 		booking.setCheckinDate(now);
 		bookingService.save(booking);
@@ -86,7 +88,9 @@ public class BookingServiceTest {
 	@Test
 	public void testCancelBooking() {
 		Booking booking = bookingService.createBooking(2L, "testuser");
+		bookingService.save(booking);
 		Booking booking1 = bookingService.createBooking(3L, "testuser");
+		bookingService.save(booking1);
 		bookingService.cancelBooking(booking.getId());
 		
 		Assert.assertEquals(1, bookingService.findBookings("testuser").size());
