@@ -80,14 +80,13 @@ public class HotelsController {
 		booking.setHotel(bookingService.findHotelById(Long.parseLong(request.getParameter("hotel.id"))));
 		model.addAttribute("booking", booking);
 		System.out.println("CC2: " + booking.getCreditCard());
-		bookingService.createBooking(booking.getHotel().getId(), currentUser.getName());
+		bookingService.save(booking);
 		return "redirect:../hotels/success";
 	}
 	
 	@RequestMapping(value = "/hotels/success", method = RequestMethod.GET)
 	public String bookingSuccess(@ModelAttribute("booking") Booking booking, Model model) {
 		System.out.println("CC3: " + booking.getCreditCard());
-		bookingService.save(booking);
 		return "success";
 	}
 
