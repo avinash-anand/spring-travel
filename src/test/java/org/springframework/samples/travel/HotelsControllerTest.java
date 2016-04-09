@@ -18,6 +18,8 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.easymock.EasyMock;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = "classpath:/META-INF/spring/root-context.xml")
@@ -28,12 +30,12 @@ public class HotelsControllerTest {
 	@Autowired
     private WebApplicationContext wac;
 	
-	@Autowired
 	private BookingService bookingService;
 	
 	@Before
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		bookingService = EasyMock.createMock(BookingService.class);
 	}
 
 	@Test

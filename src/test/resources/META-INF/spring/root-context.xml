@@ -11,7 +11,7 @@
 	<import resource="data.xml" />
 	
 	
-	<context:component-scan base-package="org.springframework.*" />
+	<context:component-scan base-package="org.springframework.samples.*" />
 
 	
 </beans>
