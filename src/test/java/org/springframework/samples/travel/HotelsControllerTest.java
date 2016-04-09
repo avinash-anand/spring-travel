@@ -83,8 +83,11 @@ public class HotelsControllerTest {
 	@Test
 //	@Ignore
 	public void testBookingSuccess() throws Exception {
+		Booking booking = new Booking();
 		this.mockMvc.perform(get("/hotels/success")
-				.accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+				.accept(MediaType.parseMediaType("application/json;charset=UTF-8"))
+				.sessionAttr("booking", booking)
+				)
 		.andExpect(status().isOk());
 //		fail("Not yet implemented");
 	}

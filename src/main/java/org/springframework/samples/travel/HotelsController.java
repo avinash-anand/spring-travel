@@ -87,7 +87,7 @@ public class HotelsController {
 	@RequestMapping(value = "/hotels/success", method = RequestMethod.GET)
 	public String bookingSuccess(@ModelAttribute("booking") Booking booking, Model model) {
 		System.out.println("CC3: " + booking.getCreditCard());
-		return "success";
+		return "successPage";
 	}
 
 	@RequestMapping(value = "/bookings/{id}", method = RequestMethod.DELETE)
