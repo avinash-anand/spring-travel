@@ -28,6 +28,9 @@ public class HotelsControllerTest {
 	@Autowired
     private WebApplicationContext wac;
 	
+	@Autowired
+	private BookingService bookingService;
+	
 	@Before
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
